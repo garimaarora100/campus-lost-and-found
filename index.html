@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#10182b" />
+  <title>CampusFind — Lost & Found</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="CampusFind home">
+        <span class="brand-mark">✳</span>
+        <span>campus<span class="brand-light">find</span><small>LOST & FOUND PORTAL</small></span>
+      </a>
+      <div class="campus-label">YOUR CAMPUS</div>
+      <div class="campus-select"><span class="campus-icon">⌂</span><span><b>University Campus</b><small>Student community</small></span><span class="chevron">⌄</span></div>
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="nav">
+        <button class="nav-item active" data-view="all"><span>▦</span> All items <span class="nav-count" id="allCount">0</span></button>
+        <button class="nav-item" data-view="lost"><span>⌕</span> Lost items</button>
+        <button class="nav-item" data-view="found"><span>✓</span> Found items</button>
+        <button class="nav-item" data-view="my"><span>♡</span> My reports</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><span class="help-icon">✦</span><b>Found something?</b><p>A small act of kindness can make someone's day.</p><button id="sidebarReport" class="help-link">Report an item <span>↗</span></button></div>
+        <div class="profile"><div class="avatar">S</div><div><b>Campus Student</b><small>Student account</small></div><span class="profile-dots">•••</span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button>
+        <div class="breadcrumb">Workspace <span>/</span> <b id="breadcrumbTitle">All items</b></div>
+        <div class="top-actions"><span class="live-dot"></span><span class="campus-status">Campus community board</span><button class="top-avatar" title="Student profile">S</button></div>
+      </header>
+
+      <section class="page-content">
+        <div class="welcome-row">
+          <div><div class="eyebrow"><span class="eyebrow-dot"></span> THE CAMPUS COMMUNITY BOARD</div><h1>Lost something? <span>Let's find it.</span></h1><p class="subtitle">A little help goes a long way. Browse reports or help reunite an item with its owner.</p></div>
+          <button class="primary-btn" id="reportTop"><span>＋</span> Report an item</button>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span>Total reports</span><span class="stat-icon blue">▤</span></div><div class="stat-number" id="totalStat">0</div><div class="stat-foot"><span class="tiny-dot blue-dot"></span> Community submissions</div></article>
+          <article class="stat-card"><div class="stat-top"><span>Lost items</span><span class="stat-icon orange">⌕</span></div><div class="stat-number" id="lostStat">0</div><div class="stat-foot"><span class="tiny-dot orange-dot"></span> Waiting to be found</div></article>
+          <article class="stat-card"><div class="stat-top"><span>Found items</span><span class="stat-icon green">✓</span></div><div class="stat-number" id="foundStat">0</div><div class="stat-foot"><span class="tiny-dot green-dot"></span> Ready to reunite</div></article>
+          <article class="stat-card"><div class="stat-top"><span>Reunited</span><span class="stat-icon purple">♡</span></div><div class="stat-number" id="reunitedStat">0</div><div class="stat-foot"><span class="tiny-dot purple-dot"></span> Marked as returned</div></article>
+        </div>
+
+        <section class="listing-section">
+          <div class="section-heading"><div><h2 id="listingTitle">Recently reported items</h2><p>Browse the latest reports from around campus.</p></div><div class="view-toggle"><button class="view-btn selected" aria-label="Grid view">▦</button><button class="view-btn" aria-label="List view" id="listViewBtn">☰</button></div></div>
+          <div class="toolbar">
+            <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search items, locations, keywords..." /><kbd>⌘ K</kbd></label>
+            <select id="categoryFilter" aria-label="Filter by category"><option value="all">All categories</option><option>Electronics</option><option>Accessories</option><option>ID & Cards</option><option>Books & Notes</option><option>Bags</option><option>Clothing</option><option>Other</option></select>
+            <select id="sortFilter" aria-label="Sort items"><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="az">Name A–Z</option></select>
+          </div>
+          <div class="filter-row"><div class="pills" id="statusPills"><button class="pill active" data-status="all">All reports <span id="pillAll">0</span></button><button class="pill" data-status="lost">Lost <span id="pillLost">0</span></button><button class="pill" data-status="found">Found <span id="pillFound">0</span></button><button class="pill" data-status="reunited">Reunited <span id="pillReunited">0</span></button></div><span class="results-count" id="resultsCount">Showing 0 items</span></div>
+          <div class="items-grid" id="itemsGrid"></div>
+          <div class="empty-state hidden" id="emptyState"><div class="empty-illustration">⌕</div><h3>No items found</h3><p>Try another search or clear your filters to see more reports.</p><button class="secondary-btn" id="clearFilters">Clear filters</button></div>
+          <div class="bottom-note"><span>✦</span> Be kind. Be helpful. Keep our campus connected.</div>
+        </section>
+        <footer>© 2026 CampusFind <span>Made for a more helpful campus community.</span></footer>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="reportModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-head"><div><div class="eyebrow">CAMPUS COMMUNITY</div><h2 id="modalTitle">Report an item</h2><p>Share a few details to help the right person find it.</p></div><button class="close-btn" data-close="reportModal" aria-label="Close">×</button></div>
+      <form id="reportForm">
+        <div class="form-row two-col"><label>Report type <span>*</span><select id="itemStatus" required><option value="lost">I lost an item</option><option value="found">I found an item</option></select></label><label>Category <span>*</span><select id="itemCategory" required><option>Electronics</option><option>Accessories</option><option>ID & Cards</option><option>Books & Notes</option><option>Bags</option><option>Clothing</option><option>Other</option></select></label></div>
+        <label class="form-field">Item name <span>*</span><input id="itemName" maxlength="70" placeholder="e.g. Black wireless headphones" required /></label>
+        <label class="form-field">Description <span>*</span><textarea id="itemDescription" rows="3" maxlength="500" placeholder="Add identifying details, colour, brand, or other helpful clues..." required></textarea></label>
+        <div class="form-row two-col"><label>Location <span>*</span><input id="itemLocation" maxlength="100" placeholder="e.g. Library, 2nd floor" required /></label><label>Date <span>*</span><input id="itemDate" type="date" required /></label></div>
+        <div class="form-row two-col"><label>Your name <span>*</span><input id="reporterName" maxlength="60" placeholder="Your name" required /></label><label>Contact (email/phone) <span>*</span><input id="reporterContact" maxlength="100" placeholder="How can the owner reach you?" required /></label></div>
+        <label class="form-field">Image URL <small>(optional)</small><input id="itemImage" type="url" placeholder="https://example.com/item-photo.jpg" /></label>
+        <div class="privacy-note"><span>♧</span><p><b>Privacy tip</b> Don't include passwords, full ID numbers, or other sensitive details in your description.</p></div>
+        <div class="form-actions"><button type="button" class="secondary-btn" data-close="reportModal">Cancel</button><button class="primary-btn" type="submit">Publish report <span>↗</span></button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <div class="modal detail-modal"><button class="close-btn detail-close" data-close="detailModal" aria-label="Close">×</button><div id="detailContent"></div></div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
